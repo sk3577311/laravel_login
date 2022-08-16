@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\GithubController;
+use App\Http\Controllers\CustomAuthController;
 
 
 /*
@@ -24,6 +25,15 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::controller(CustomAuthController::class)->group(function(){
+    Route::get('login','login')->name('login');
+    Route::post('custom_login','custom_login')->name('custom_login');
+
+    Route::get('register','register')->name('register');
+    Route::post('registeration','registeration')->name('registeration');
+
+    Route::get('logout','logout')->name('signout');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
